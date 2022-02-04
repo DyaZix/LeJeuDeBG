@@ -7,7 +7,7 @@ import sys
  
 #pygame init
 pygame.init()
-DISPLAYSURF = pygame.display.set_mode((1920, 1080), DOUBLEBUF)    #set the display mode, window title and FPS clock
+WINDOW = pygame.display.set_mode((1920, 1080), DOUBLEBUF)    #set the display mode, window title and FPS clock
 pygame.display.set_caption('Le jeu bg')
 FPSCLOCK = pygame.time.Clock()
 
@@ -16,7 +16,7 @@ FPSCLOCK = pygame.time.Clock()
 map_init()
 map_data = getMap() 
 loadTextures()            
-displayMap(DISPLAYSURF)
+displayMap(WINDOW)
  
  
 while True:

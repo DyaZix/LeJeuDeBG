@@ -120,7 +120,7 @@ def getMap():
     return map_data    
 
 #converts the 2D cartesian map to an isometric one and displays it
-def displayMap(DISPLAYSURF):
+def displayMap(WINDOW):
     
     #iterates throught the map data
     for row_nb, row in enumerate(map_data):    
@@ -141,11 +141,11 @@ def displayMap(DISPLAYSURF):
             iso_y  = (cart_x + cart_y)/2
             
             #pos = center of the texture
-            centered_x = DISPLAYSURF.get_rect().centerx + iso_x
-            centered_y = DISPLAYSURF.get_rect().centery/2 + iso_y
+            centered_x = WINDOW.get_rect().centerx + iso_x
+            centered_y = WINDOW.get_rect().centery/2 + iso_y
             
             #displays the texture
-            DISPLAYSURF.blit(tileImage, (centered_x, centered_y))   #display the actual tile
+            WINDOW.blit(tileImage, (centered_x, centered_y))   #display the actual tile
 
 def loadTextures():
     
