@@ -17,6 +17,14 @@ GRASS = 0
 #data declaration   map_data = 2D list
 map_data = []
 
+
+#textures caracteristics
+TILEWIDTH       = 64  #holds the tile width and height
+TILEHEIGHT      = 64
+TILEHEIGHT_HALF = TILEHEIGHT /2
+TILEWIDTH_HALF  = TILEWIDTH /2
+
+
 #here will be stored the loaded images
 textures = []
 
@@ -78,29 +86,24 @@ def step(row, row_nb):
         PATHChoice = random.randint(1, 4)           #   1 = up      2 = down    3 = left    4 = right
         
         if PATHChoice == UP:
-            row += 1
-            
+            row += 1           
         elif PATHChoice == DOWN:
-            row -= 1
-        
+            row -= 1        
         elif PATHChoice == LEFT:
-            row_nb -= 1
-        
+            row_nb -= 1        
         else:
             row_nb += 1
-
+            
+        #if the current path position is not into the exterior walls
         if row != (0 + EXT_WALLS_SIZE) and row != (MAP_WIDTH-EXT_WALLS_SIZE) and row_nb != (0 + EXT_WALLS_SIZE) and row_nb != (MAP_LENGTH-EXT_WALLS_SIZE):
             break
         else:
             if PATHChoice == UP:
                 row -= 1
-            
             elif PATHChoice == DOWN:
                 row += 1
-            
             elif PATHChoice == LEFT:
-                row_nb += 1
-            
+                row_nb += 1 
             else:
                 row_nb -= 1
 
@@ -116,31 +119,40 @@ def printMap():
 def getMap():
     return map_data    
 
-
+#converts the 2D cartesian map to an isometric one and displays it
 def displayMap(DISPLAYSURF):
     
-    TILEWIDTH       = 64  #holds the tile width and height
-    TILEHEIGHT      = 64
-    TILEHEIGHT_HALF = TILEHEIGHT /2
-    TILEWIDTH_HALF  = TILEWIDTH /2
-    
-    for row_nb, row in enumerate(map_data):              #for every row of the map...
+    #iterates throught the map data
+    for row_nb, row in enumerate(map_data):    
         for col_nb, tile in enumerate(row):
+            
+            #choosing the texture to display
             if tile == WALL:
                 tileImage = textures[WALL]
             elif tile == GRASS:
                 tileImage = textures[GRASS]
+            
+            #Cartesian position of the texture
             cart_x = row_nb * TILEWIDTH_HALF
             cart_y = col_nb * TILEHEIGHT_HALF  
-            iso_x = (cart_x - cart_y) 
-            iso_y = (cart_x + cart_y)/2
+            
+            #Isometric position of the texture
+            iso_x  = (cart_x - cart_y) 
+            iso_y  = (cart_x + cart_y)/2
+            
+            #pos = center of the texture
             centered_x = DISPLAYSURF.get_rect().centerx + iso_x
             centered_y = DISPLAYSURF.get_rect().centery/2 + iso_y
+            
+            #displays the texture
             DISPLAYSURF.blit(tileImage, (centered_x, centered_y))   #display the actual tile
 
 def loadTextures():
+    
+    #load each textures
     wall_texture  = pygame.image.load('Assets/wall.png').convert_alpha() 
     grass_texture = pygame.image.load('Assets/grass.png').convert_alpha()
     
+    #add each textures to the textures list
     textures.append(grass_texture)
     textures.append(wall_texture)
