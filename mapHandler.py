@@ -1,6 +1,5 @@
 import pygame
 from pygame.locals import *
-import sys
 import random
 
 
@@ -10,20 +9,21 @@ MAP_WIDTH = 26
 EXT_WALLS_SIZE = 3
 PATH_SIZE = int((MAP_LENGTH * MAP_WIDTH)*3)
 
-
+#map data values /!\AND/!\ textures[] index
 WALL = 1
-PATH = 0
+GRASS = 0
 
 
 #data declaration   map_data = 2D list
 map_data = []
 
-
+#here will be stored the loaded images
+textures = []
 
 def map_init():
     
     #   map example
-    #   PATH = 0   &   WALL = 1 
+    #   GRASS = 0   &   WALL = 1 
 
     """"
     map_data = [
@@ -31,8 +31,8 @@ def map_init():
     [1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
     [1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
     [1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1],
-    [1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    [1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    [1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1],
+    [1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1],
     [1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1],
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
@@ -41,7 +41,7 @@ def map_init():
     ]  
     """
     
-    
+    #map data initialisation
     for row in range(MAP_WIDTH):
         row = []
         for row_nb in range(MAP_LENGTH):
@@ -52,18 +52,19 @@ def map_init():
     pathMaking() 
     
     
-            
-
+#pathMaking algorithm
+#creates the navigable area on the map
 def pathMaking():
     row = int(MAP_WIDTH/2)
     row_nb = int(MAP_LENGTH/2)
     
-    map_data[int(MAP_WIDTH/2)][int(MAP_LENGTH/2)] = PATH
+    map_data[int(MAP_WIDTH/2)][int(MAP_LENGTH/2)] = GRASS
     
     for PATH_iterator in range(PATH_SIZE):
         row, row_nb = step(row, row_nb)
+        
 
-    
+#moves the position of the path algorithm in a coherent direction
 def step(row, row_nb):
     
     UP = 1
@@ -103,9 +104,10 @@ def step(row, row_nb):
             else:
                 row_nb -= 1
 
-    map_data[row][row_nb] = PATH
+    map_data[row][row_nb] = GRASS
     
     return row, row_nb;
+    
     
 def printMap():
     for row in range(MAP_WIDTH):
@@ -122,16 +124,12 @@ def displayMap(DISPLAYSURF):
     TILEHEIGHT_HALF = TILEHEIGHT /2
     TILEWIDTH_HALF  = TILEWIDTH /2
     
-    
-    wall_texture  = pygame.image.load('Assets/wall.png').convert_alpha() 
-    grass_texture = pygame.image.load('Assets/grass.png').convert_alpha()
-    
     for row_nb, row in enumerate(map_data):              #for every row of the map...
         for col_nb, tile in enumerate(row):
             if tile == WALL:
-                tileImage = wall_texture
-            elif tile == PATH:
-                tileImage = grass_texture
+                tileImage = textures[WALL]
+            elif tile == GRASS:
+                tileImage = textures[GRASS]
             cart_x = row_nb * TILEWIDTH_HALF
             cart_y = col_nb * TILEHEIGHT_HALF  
             iso_x = (cart_x - cart_y) 
@@ -139,3 +137,10 @@ def displayMap(DISPLAYSURF):
             centered_x = DISPLAYSURF.get_rect().centerx + iso_x
             centered_y = DISPLAYSURF.get_rect().centery/2 + iso_y
             DISPLAYSURF.blit(tileImage, (centered_x, centered_y))   #display the actual tile
+
+def loadTextures():
+    wall_texture  = pygame.image.load('Assets/wall.png').convert_alpha() 
+    grass_texture = pygame.image.load('Assets/grass.png').convert_alpha()
+    
+    textures.append(grass_texture)
+    textures.append(wall_texture)

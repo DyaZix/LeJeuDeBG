@@ -14,7 +14,8 @@ FPSCLOCK = pygame.time.Clock()
 
 #map init
 map_init()
-map_data = getMap()             
+map_data = getMap() 
+loadTextures()            
 displayMap(DISPLAYSURF)
  
  
