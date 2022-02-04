@@ -27,6 +27,5 @@ while True:
             if event.key == K_ESCAPE:
                 pygame.quit()
                 sys.exit()
- 
     pygame.display.flip()
     FPSCLOCK.tick(30)

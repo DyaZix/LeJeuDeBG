@@ -46,6 +46,7 @@ def map_init():
         row = []
         for row_nb in range(MAP_LENGTH):
             row.append(1)
+            
         map_data.append(row)
         
     pathMaking() 
