@@ -4,22 +4,26 @@ import sys
 import random
 
 
-WALL = 1
-GRASS = 0
-
+#caracteristics
 MAP_LENGTH = 26
 MAP_WIDTH = 26
-
 EXT_WALLS_SIZE = 3
+PATH_SIZE = int((MAP_LENGTH * MAP_WIDTH)*3)
 
+
+WALL = 1
+PATH = 0
+
+
+#data declaration   map_data = 2D list
 map_data = []
 
-GRASS_SIZE = int((MAP_LENGTH * MAP_WIDTH)*3)
+
 
 def map_init():
     
     #   map example
-    #   GRASS = 0   &   WALL = 1 
+    #   PATH = 0   &   WALL = 1 
 
     """"
     map_data = [
@@ -53,9 +57,9 @@ def pathMaking():
     row = int(MAP_WIDTH/2)
     row_nb = int(MAP_LENGTH/2)
     
-    map_data[int(MAP_WIDTH/2)][int(MAP_LENGTH/2)] = GRASS
+    map_data[int(MAP_WIDTH/2)][int(MAP_LENGTH/2)] = PATH
     
-    for GRASS_iterator in range(GRASS_SIZE):
+    for PATH_iterator in range(PATH_SIZE):
         row, row_nb = step(row, row_nb)
 
     
@@ -69,15 +73,15 @@ def step(row, row_nb):
 
     while True:
         
-        GRASSChoice = random.randint(1, 4)           #   1 = up      2 = down    3 = left    4 = right
+        PATHChoice = random.randint(1, 4)           #   1 = up      2 = down    3 = left    4 = right
         
-        if GRASSChoice == UP:
+        if PATHChoice == UP:
             row += 1
             
-        elif GRASSChoice == DOWN:
+        elif PATHChoice == DOWN:
             row -= 1
         
-        elif GRASSChoice == LEFT:
+        elif PATHChoice == LEFT:
             row_nb -= 1
         
         else:
@@ -86,19 +90,19 @@ def step(row, row_nb):
         if row != (0 + EXT_WALLS_SIZE) and row != (MAP_WIDTH-EXT_WALLS_SIZE) and row_nb != (0 + EXT_WALLS_SIZE) and row_nb != (MAP_LENGTH-EXT_WALLS_SIZE):
             break
         else:
-            if GRASSChoice == UP:
+            if PATHChoice == UP:
                 row -= 1
             
-            elif GRASSChoice == DOWN:
+            elif PATHChoice == DOWN:
                 row += 1
             
-            elif GRASSChoice == LEFT:
+            elif PATHChoice == LEFT:
                 row_nb += 1
             
             else:
                 row_nb -= 1
 
-    map_data[row][row_nb] = GRASS
+    map_data[row][row_nb] = PATH
     
     return row, row_nb;
     
@@ -125,7 +129,7 @@ def displayMap(DISPLAYSURF):
         for col_nb, tile in enumerate(row):
             if tile == WALL:
                 tileImage = wall_texture
-            elif tile == GRASS:
+            elif tile == PATH:
                 tileImage = grass_texture
             cart_x = row_nb * TILEWIDTH_HALF
             cart_y = col_nb * TILEHEIGHT_HALF  
