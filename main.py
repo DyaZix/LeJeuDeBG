@@ -17,6 +17,14 @@ map_init()
 map_data = getMap() 
 loadTextures()            
 displayMap(WINDOW)
+
+#music init & start
+file = 'terraria.mp3'
+pygame.init()
+pygame.mixer.init()
+pygame.mixer.music.load(file)
+pygame.mixer.music.play(-1)     # If the loops is -1 then the music will repeat indefinitely.
+pygame.mixer.music.set_volume(0.06)
  
  
 while True:
