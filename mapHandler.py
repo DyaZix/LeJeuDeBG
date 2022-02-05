@@ -11,8 +11,8 @@ class mapHandler:
     def __init__(self):
 
         #caracteristics
-        self.MAP_LENGTH = 50
-        self.MAP_WIDTH = 50
+        self.MAP_LENGTH = 300
+        self.MAP_WIDTH = 300
         self.EXT_WALLS_SIZE = 1
         self.PATH_SIZE = int(((self.MAP_LENGTH * self.MAP_WIDTH)))
 
@@ -164,37 +164,13 @@ class mapHandler:
 
         WINDOW.fill((0, 0, 0))
 
-        Y_CAMERA_OFFSET = 300
-
         cam_x, cam_y = self.isoToCartesian(camera.getXPosition(), camera.getYPosition())
         cam_x = int(cam_x/self.TILEWIDTH_HALF)
         cam_y = int(cam_y/self.TILEHEIGHT_HALF)  
 
-        
-
-        print()
-        print()
-        print()
-        print()
-        print()
-        print()
-        print()
-        print()
-
-        
-        #!TODO search into the map using camera coordinates
-        #iterates throught the map data
-
-        #row max trop petit
-        #col max trop grand
-
-        print("Cam x: ", end="")
-        print(cam_x)
-
-        print("Cam y: ", end="")
-        print(cam_y)
 
 
+        #data boundaries corresponding to camera position
         row_min = cam_y - 20
         if row_min < 0:
             row_min = 0
@@ -211,20 +187,9 @@ class mapHandler:
         col_max = cam_x + 20
         if col_max > self.MAP_LENGTH:
             col_max = self.MAP_LENGTH
-
-        print("row max: ", end="")
-        print(row_max)
-
-        print("row min: ", end="")
-        print(row_min)
-
-        print("col max: ", end="")
-        print(col_max)
-
-        print("col min: ", end="")
-        print(col_min)
         
         
+        #iterates throught the map data
         for row in range(row_min, row_max):
             for col in range(col_min, col_max):
 
@@ -249,34 +214,6 @@ class mapHandler:
                
                 #displays the texture    
                 WINDOW.blit(tileImage, (centered_x - camera.getXPosition(), centered_y - camera.getYPosition()))  
-        """
-
-        for col in range(17, 50):
-            for col_nb in range(0, 37):
-
-                tile = self.map_data[col][col_nb]
-
-                #Cartesian position of the texture
-                cart_x = col * self.TILEWIDTH_HALF
-                cart_y = col_nb * self.TILEHEIGHT_HALF                  
-
-                #Isometric position of the texture
-                iso_x, iso_y = self.cartesianToIso(cart_x, cart_y)
-                    
-                #choosing the texture to display
-                if tile == self.WALL:
-                    tileImage = self.textures[self.WALL]
-                elif tile == self.GRASS:
-                    tileImage = self.textures[self.GRASS]
-                            
-                #pos = center of the texture
-                centered_x = WINDOW.get_rect().centerx + iso_x
-                centered_y = WINDOW.get_rect().centery + iso_y
-
-              
-                #displays the texture    
-                WINDOW.blit(tileImage, (centered_x - camera.getXPosition(), centered_y - camera.getYPosition()))  
-        """
 
 
 

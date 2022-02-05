@@ -75,13 +75,13 @@ class Game:
     def movement(self):
         keys = pygame.key.get_pressed()
         if keys[pygame.K_s]:
-            self.camera.setPosition(self.camera.getXPosition(), self.camera.getYPosition() + 30)
+            self.camera.setPosition(self.camera.getXPosition(), self.camera.getYPosition() + 5)
         if keys[pygame.K_z]:
-            self.camera.setPosition(self.camera.getXPosition(), self.camera.getYPosition() - 30)
+            self.camera.setPosition(self.camera.getXPosition(), self.camera.getYPosition() - 5)
         if keys[pygame.K_q]:
-            self.camera.setPosition(self.camera.getXPosition() - 30, self.camera.getYPosition())
+            self.camera.setPosition(self.camera.getXPosition() - 5, self.camera.getYPosition())
         if keys[pygame.K_d]:
-            self.camera.setPosition(self.camera.getXPosition() + 30, self.camera.getYPosition())
+            self.camera.setPosition(self.camera.getXPosition() + 5, self.camera.getYPosition())
 
     def isRunning(self):
         return self.runningState
