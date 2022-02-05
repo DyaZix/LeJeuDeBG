@@ -57,7 +57,7 @@ class Game:
                         sys.exit()
 
             #clock
-            self.FPSCLOCK.tick(60)
+            self.FPSCLOCK.tick(120)
         
     def update(self):
         self.movement()
