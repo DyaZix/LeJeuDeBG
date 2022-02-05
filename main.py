@@ -14,7 +14,7 @@ class Game:
         #pygame init
         pygame.init()
         pygame.display.set_caption('Le jeu bg')
-        self.WINDOW   = pygame.display.set_mode((1920, 1080), DOUBLEBUF)    #set the display mode, window title and FPS clock
+        self.WINDOW   = pygame.display.set_mode((960, 1080), DOUBLEBUF)    #set the display mode, window title and FPS clock
         self.FPSCLOCK = pygame.time.Clock()
         
         #camera init
